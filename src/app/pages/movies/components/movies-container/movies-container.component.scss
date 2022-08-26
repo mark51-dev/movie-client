@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+
+.movie-item {
+  display: flex;
+  margin: 5px auto;
+  text-align: center;
+  scale: 1;
+  transition: all 0.3s;
+  border-radius: 15px;
+}
+
+
+.movie-item:hover {
+  background: black;
+  scale: 1.1;
+  border-radius: 15px;
+  z-index: 100;
+}

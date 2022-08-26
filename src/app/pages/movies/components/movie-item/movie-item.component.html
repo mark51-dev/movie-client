@@ -1,0 +1,8 @@
+<a routerLink="/movies" [queryParams]="{movieShort: movie.kinopoiskId}">
+  <div class="movie">
+    <img class="movie__img" src="{{ movie.posterUrlPreview }}" alt="{{ movie.nameRu }}">
+    <div class="movie__movie-name">
+      {{ movie.nameRu }}
+    </div>
+  </div>
+</a>

@@ -1,0 +1,11 @@
+<app-search-field
+  (searchValueEmitter)="movieSearchByNameHandler($event)"
+></app-search-field>
+<div class="container">
+  <app-movie-item
+    class="movie-item"
+    *ngFor="let movie of movies | async | searchByField: movieSearchValue"
+    [movie]="movie"
+  ></app-movie-item>
+</div>
+<app-movie-short-details></app-movie-short-details>

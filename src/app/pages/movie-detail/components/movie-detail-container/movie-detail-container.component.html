@@ -1,0 +1,54 @@
+<div *ngIf="movie | async as item; else loading">
+  <div class="movie-container-info">
+    <div class="display-flex">
+      <div class="movie-container-left">
+        <div class="poster">
+          <img class="poster__img" src="{{ item.coverUrl }}" alt="" />
+        </div>
+      </div>
+      <div class="movie-container-right">
+        <div class="heading">
+          <h1 class="film-name-ru">{{ item.nameRu }}</h1>
+          <h2 class="film-name-original">{{ item.nameOriginal }}</h2>
+        </div>
+        <app-tabs-container>
+          <tab title="Информация о фильме">
+            <div class="movie-info display-flex space-between">
+              <ul class="list-info">
+                <li class="list-info__item">
+                  Длительность: {{ item.filmLength }}
+                </li>
+                <li class="list-info__item">Год: {{ item.year }}</li>
+              </ul>
+              <ul class="display-flex rating-info">
+                <li class="list-info__item kp-badge">
+                  <span>Кинопоиск</span>{{ item.ratingKinopoisk }}
+                </li>
+                <li class="list-info__item imdb-badge">
+                  <span>IMDB</span> {{ item.ratingImdb }}
+                </li>
+              </ul>
+            </div>
+          </tab>
+          <tab title="Дополнительная информация о фильме"> </tab>
+        </app-tabs-container>
+        <div class="description">
+          {{ item.description }}
+        </div>
+      </div>
+    </div>
+    <!-- <app-main-player></app-main-player> -->
+    <iframe
+      [src]="'https:' + item.videoCdnMovie.iframe_src | safe: 'resourceUrl'"
+      width="100%"
+      height="800px"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
+  </div>
+</div>
+
+<!--//18.svetacdn.in/kvtVIELMh8IJ/movie/13018-->
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

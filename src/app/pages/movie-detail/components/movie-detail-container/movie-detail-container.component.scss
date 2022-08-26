@@ -1,0 +1,96 @@
+.movie-container-info {
+  margin: 20px;
+  border-radius: 15px;
+  background: #181818;
+  padding-bottom: 20px;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.movie-container-left {
+  width: 50%;
+  padding: 15px;
+}
+
+.movie-container-right {
+  width: 50%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.description {
+  margin-top: auto;
+}
+
+.poster__img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.movie-container {
+  margin-top: 20px;
+  padding: 15px;
+}
+
+.film-name-ru {
+  margin: 0;
+}
+
+.film-name-original {
+  margin: 0;
+}
+
+.heading {
+  text-align: center;
+}
+
+.film-name-original {
+  font-size: 12px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.movie-info {
+  flex: 1;
+}
+
+.kp-badge {
+  background: #e1830f;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 16px;
+  height: 30px;
+  padding: 6px 20px;
+  color: black;
+  margin-right: 8px;
+
+  & span {
+    color: white;
+    margin-right: 10px;
+  }
+}
+
+.imdb-badge {
+  background: #c33717;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 16px;
+  height: 30px;
+  padding: 6px 20px;
+  color: black;
+
+  & span {
+    color: white;
+    margin-right: 4px;
+  }
+}

@@ -1,0 +1,50 @@
+<div class="movie-detail" *ngIf="movieShortVisible" @flyInOut>
+  <div>
+    <div class="movie-detail__close-button">
+      <!--  We need to remove queryParams. This is bugfix for repeated click on movie. This is reload router -->
+      <a
+        (click)="detailMovieClose()"
+        routerLink="/movies"
+        [queryParams]="{ movieShort: null }"
+        >Close</a
+      >
+    </div>
+    <div>
+      <!--    {{ movie.nameRu }}-->
+      <div class="movie-detail__img">
+        <img
+          *ngIf="movie.logoUrl; else movieName"
+          src="{{ movie.logoUrl }}"
+          alt=""
+        />
+        <ng-template #movieName>
+          {{ movie.nameRu }}
+        </ng-template>
+      </div>
+      <div class="movie-detail__about-heading">О фильме</div>
+      <ul class="film-info">
+        <li class="film-info__item">Год выпуска: {{ movie.year }}</li>
+        <li class="film-info__item">
+          Длительность фильма: {{ movie.filmLength }}
+        </li>
+        <li class="film-info__item">
+          Возрастные ограничения: {{ movie.ratingAgeLimits }}
+        </li>
+        <li class="film-info__item">Жанр: Боевик, Ужасы</li>
+      </ul>
+      <h2>Кратное описание</h2>
+      <div class="movie-detail__short-description">
+        {{ movie.description }}
+      </div>
+      <div class="movie-detail__wrapper-button">
+        <button
+          class="movie-detail__button"
+          routerLink="/movie-details/{{ movie.kinopoiskId }}"
+        >
+          Смотреть
+        </button>
+      </div>
+    </div>
+  </div>
+  <app-loader [isLoading]="isLoading"></app-loader>
+</div>

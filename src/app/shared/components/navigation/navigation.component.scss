@@ -1,0 +1,25 @@
+.navigation {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  background: black;
+  margin: 0;
+  padding: 20px 0;
+
+  &__item {
+    margin-right: 10px;
+
+  }
+
+  &__link {
+    color: white;
+    text-decoration: none;
+    transition: .3s;
+
+    &:hover {
+      color: #831010;
+    }
+  }
+}
+
+

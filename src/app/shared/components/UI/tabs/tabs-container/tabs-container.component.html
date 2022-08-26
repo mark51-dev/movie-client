@@ -1,0 +1,4 @@
+<div class="flex justify-center mg-20-0">
+  <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.red]="tab.isActive" class="mg-0-20">{{tab.title}}</li>
+</div>
+<ng-content></ng-content>

@@ -1,0 +1,16 @@
+.search-field {
+  padding: 20px;
+  background: rgba(19, 19, 19, 0.733);
+  display: flex;
+  justify-content: center;
+
+  &__input {
+    width: 300px;
+    border-radius: 5px;
+    outline: none;
+    height: 30px;
+    padding: 5px 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}

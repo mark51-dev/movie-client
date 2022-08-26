@@ -1,0 +1,30 @@
+.shaka-video-container {
+  position: relative;
+  width: 100%;
+  height: 800px;
+  display: flex;
+  margin: 0 auto;
+}
+
+.shaka-small-play-button.material-icons-round.shaka-tooltip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 80px;
+  transform: translate(-50%, -50%);
+}
+
+.shaka-pip-button.shaka-tooltip {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.shaka-controls-button-panel.shaka-show-controls-on-mouse-over {
+  display: flex;
+}
+
+.shaka-current-time {
+  margin-right: auto;
+}
