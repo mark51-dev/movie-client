@@ -2,7 +2,7 @@
   <input
     placeholder="Поиск"
     type="text"
-    (keyup)="searchHandler($event)"
     class="search-field__input"
+    [formControl]="searchFormControl"
   />
 </div>

@@ -14,6 +14,11 @@ const routes: Routes = [
         (m) => m.MovieDetailModule
       ),
   },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('./pages/auth/auth.module').then((m) => m.AuthModule),
+  },
 ];
 
 @NgModule({

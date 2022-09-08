@@ -4,14 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  // ...
-} from '@angular/animations';
+import { IVideo } from 'src/app/pages/utils/video.service-abstraction';
 
 @Component({
   selector: 'app-movie-item',
@@ -20,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieItemComponent implements OnInit {
-  @Input() movie: any;
+  @Input() movie!: IVideo;
   constructor() {}
 
   ngOnInit(): void {}

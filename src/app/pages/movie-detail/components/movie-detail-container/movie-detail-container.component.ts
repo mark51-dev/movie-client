@@ -1,8 +1,9 @@
+import { IVideo } from './../../../utils/video.service-abstraction';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { fadeInAnimation } from 'src/app/app.animation';
-import { MovieDetailService } from '../../services/movie-detail.service';
+import { VideoServiceAbstraction } from 'src/app/pages/utils/video.service-abstraction';
 
 @Component({
   selector: 'app-movie-detail-container',
@@ -12,23 +13,23 @@ import { MovieDetailService } from '../../services/movie-detail.service';
   host: { '[@fadeInAnimation]': '' },
 })
 export class MovieDetailContainerComponent implements OnInit {
-  movieId!: string | null;
-  movie!: Observable<any>;
+  movie: Observable<IVideo> | undefined;
   constructor(
     private readonly router: ActivatedRoute,
-    private readonly movieDetail: MovieDetailService
+    private readonly movieDetail: VideoServiceAbstraction
   ) {}
 
   ngOnInit(): void {
     this.initializeData();
   }
 
-  initializeData() {
-    this.router.paramMap.subscribe((res) => (this.movieId = res.get('id')));
-    this.fetchMovieByKPId(this.movieId);
+  initializeData(): void {
+    this.router.paramMap.subscribe((res) => {
+      this.movie = this.fetchMovieByKPId(res.get('id'));
+    });
   }
 
-  fetchMovieByKPId(movieKPId: string | null) {
-    this.movie = this.movieDetail.fetchMovieByKPId(movieKPId);
+  fetchMovieByKPId(movieKPId: string | null): Observable<IVideo> {
+    return this.movieDetail.fetchVideoByParam(movieKPId);
   }
 }

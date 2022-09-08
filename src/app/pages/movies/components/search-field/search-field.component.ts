@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-search-field',
@@ -6,13 +7,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./search-field.component.scss'],
 })
 export class SearchFieldComponent implements OnInit {
-  @Output() searchValueEmitter: EventEmitter<any> = new EventEmitter();
+  @Input()
+  searchFormControl: FormControl = new FormControl();
   constructor() {}
 
   ngOnInit(): void {}
-
-  searchHandler(searchValue: any) {
-    this.searchValueEmitter.emit(searchValue.target.value);
-    console.log(searchValue.target.value);
-  }
 }

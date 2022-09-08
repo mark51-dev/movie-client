@@ -1,0 +1,8 @@
+<div class="wrapper">
+  <div *ngFor="let slot of containerSlotComponent" (click)="selectSlot(slot)">
+    <button [class.active]="slot.isActive">{{ slot.title }}</button>
+  </div>
+</div>
+<div class="content-wrapper">
+  <ng-content></ng-content>
+</div>

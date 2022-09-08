@@ -1,7 +1,7 @@
 <div class="movie-detail" *ngIf="movieShortVisible" @flyInOut>
   <div>
     <div class="movie-detail__close-button">
-      <!--  We need to remove queryParams. This is bugfix for repeated click on movie. This is reload router -->
+      <!--  We need to remove queryParams. For fix click on movie -->
       <a
         (click)="detailMovieClose()"
         routerLink="/movies"
@@ -10,11 +10,10 @@
       >
     </div>
     <div>
-      <!--    {{ movie.nameRu }}-->
       <div class="movie-detail__img">
         <img
           *ngIf="movie.logoUrl; else movieName"
-          src="{{ movie.logoUrl }}"
+          src="http://localhost:3000/{{ movie.logoUrl }}"
           alt=""
         />
         <ng-template #movieName>
@@ -30,7 +29,6 @@
         <li class="film-info__item">
           Возрастные ограничения: {{ movie.ratingAgeLimits }}
         </li>
-        <li class="film-info__item">Жанр: Боевик, Ужасы</li>
       </ul>
       <h2>Кратное описание</h2>
       <div class="movie-detail__short-description">

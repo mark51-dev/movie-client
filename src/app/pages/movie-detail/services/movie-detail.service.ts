@@ -1,12 +1,29 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import {
+  IVideo,
+  VideoServiceAbstraction,
+} from '../../utils/video.service-abstraction';
 
 @Injectable()
-export class MovieDetailService {
+export class MovieDetailService extends VideoServiceAbstraction {
+  constructor(private readonly http: HttpClient) {
+    super();
+  }
 
-  constructor(private readonly http: HttpClient) { }
+  fetchVideoByParam(videoParam: string): Observable<IVideo> {
+    return this.http.get<IVideo>(
+      `http://localhost:3000/api/movie/${videoParam}`
+    );
+  }
+  fetchAllVideo(): Observable<IVideo[]> {
+    return this.http.get<IVideo[]>(`http://localhost:3000/api/movie/all`);
+  }
 
-  fetchMovieByKPId(movieKPId: string | null) {
-    return this.http.get(`http://localhost:3000/api/movie/${movieKPId}`);
+  fetchMoviesBySearch(searchValue: string): Observable<IVideo[]> {
+    return this.http.get<IVideo[]>(
+      `http://localhost:3000/api/movie/search/${searchValue}`
+    );
   }
 }

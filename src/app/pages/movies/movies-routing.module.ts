@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {MoviesContainerComponent} from './components/movies-container/movies-container.component';
+import { PageMovieComponent } from './components/page-movie/page-movie.component';
 
-
-const routes: Routes = [{
-  path: 'movies',
-  component: MoviesContainerComponent
-}];
+const routes: Routes = [
+  {
+    path: 'movies',
+    component: PageMovieComponent,
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class MoviesRoutingModule { }
+export class MoviesRoutingModule {}

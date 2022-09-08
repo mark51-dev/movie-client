@@ -1,0 +1,19 @@
+<form [formGroup]="form" novalidate class="form">
+  <button (click)="resetForm()" class="form__reset">Reset</button>
+  <app-custom-select
+    [valueList]="generateYears"
+    formControlName="yearFrom"
+  ></app-custom-select>
+  <app-custom-select
+    [valueList]="generateYears"
+    formControlName="yearTo"
+  ></app-custom-select>
+  <app-custom-select
+    [valueList]="genres"
+    formControlName="genre"
+  ></app-custom-select>
+  <app-custom-select
+    [valueList]="countries"
+    formControlName="country"
+  ></app-custom-select>
+</form>

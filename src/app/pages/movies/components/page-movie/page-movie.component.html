@@ -1,0 +1,9 @@
+<app-search-field [searchFormControl]="searchControl"></app-search-field>
+<app-movies-container>
+  <app-movie-item
+    class="movie-item"
+    *ngFor="let movie of movies | async"
+    [movie]="movie"
+  ></app-movie-item>
+</app-movies-container>
+<app-movie-short-details></app-movie-short-details>

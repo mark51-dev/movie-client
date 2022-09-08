@@ -1,0 +1,16 @@
+<form [formGroup]="form" (ngSubmit)="submit($event)" novalidate>
+  <input type="email" formControlName="email" placeholder="email" />
+  <input type="password" formControlName="password" placeholder="password" />
+  <button [disabled]="!form.valid">Sign up</button>
+</form>
+<div class="errors">
+  <div *ngIf="required('email')">Email is required!</div>
+  <div *ngIf="required('password')">Password is required!</div>
+  <div *ngIf="checkPassword('password')">Incorrect password!</div>
+  <div *ngIf="checkPassword('password')">
+    Password must be: - at least 8 characters <br />
+    - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
+    <br />
+    - Can contain special characters <br />
+  </div>
+</div>

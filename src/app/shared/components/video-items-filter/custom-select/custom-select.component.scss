@@ -1,0 +1,36 @@
+.wrapper {
+  width: 100px;
+  position: relative;
+}
+
+.select-value {
+  background: white;
+  color: black;
+  text-align: center;
+  font-weight: 600;
+}
+
+.select-value-wrapper {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.select-value:hover {
+  background: #131313bb;
+  color: white;
+}
+
+.select-input {
+  width: 100%;
+  border-radius: 5px;
+  outline: none;
+  height: 25px;
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  text-align: center;
+}
