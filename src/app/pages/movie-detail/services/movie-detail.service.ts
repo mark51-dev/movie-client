@@ -26,4 +26,10 @@ export class MovieDetailService extends VideoServiceAbstraction {
       `http://localhost:3000/api/movie/search/${searchValue}`
     );
   }
+
+  fetchMoviesByLimit(
+    page: string
+  ): Observable<{ items: IVideo[]; count: number }> {
+    throw new Error('Method not implemented.');
+  }
 }

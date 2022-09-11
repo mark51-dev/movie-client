@@ -22,4 +22,12 @@ export class MoviesService extends VideoServiceAbstraction {
       `http://localhost:3000/api/movie/search/${searchValue}`
     );
   }
+
+  fetchMoviesByLimit(
+    page: string
+  ): Observable<{ items: IVideo[]; count: number }> {
+    return this.http.get<{ items: IVideo[]; count: number }>(
+      `http://localhost:3000/api/movie/all/pagination?page=${page}`
+    );
+  }
 }

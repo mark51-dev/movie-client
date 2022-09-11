@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {
   debounceTime,
   distinctUntilChanged,
+  map,
   mergeMap,
   Observable,
-  startWith,
+  of,
+  tap,
 } from 'rxjs';
 import {
   IVideo,
   VideoServiceAbstraction,
 } from 'src/app/pages/utils/video.service-abstraction';
+import { MovieItemComponent } from './../movie-item/movie-item.component';
 
 @Component({
   selector: 'app-page-movie',
@@ -19,29 +22,49 @@ import {
 })
 export class PageMovieComponent implements OnInit {
   searchControl: FormControl = new FormControl();
-  movies: Observable<IVideo[]> | undefined | any;
-  movieSearchValue: string = '';
+  searchMovies$!: Observable<IVideo[]> | Observable<[]>;
+  page: number = 0;
+
+  movies$!: Observable<IVideo[]>;
+
+  @ViewChild('movie', { read: ViewContainerRef, static: true })
+  element!: ViewContainerRef;
+
   constructor(private readonly moviesService: VideoServiceAbstraction) {}
+
+  pageHandler(): void {
+    this.movies$ = this.fetchMoviesByLimit((this.page * 25).toString()).pipe(
+      tap((res) => {
+        res.forEach((movie) => this.loadMovies(movie));
+      })
+    );
+    this.page++;
+  }
 
   ngOnInit(): void {
     this.initializeData();
   }
 
   initializeData(): void {
-    this.movies = this.searchControl.valueChanges.pipe(
-      startWith(''),
+    this.searchMovies$ = this.searchControl.valueChanges.pipe(
       distinctUntilChanged(),
       debounceTime(500),
       mergeMap((searchValue: string) => {
-        if (searchValue) {
+        if (searchValue.length)
           return this.moviesService.fetchMoviesBySearch(searchValue);
-        }
-        return this.fetchAllMovies();
+        return of([]);
       })
     );
   }
 
-  fetchAllMovies(): Observable<IVideo[]> {
-    return this.moviesService.fetchAllVideo();
+  fetchMoviesByLimit(page: string): Observable<IVideo[]> {
+    return this.moviesService
+      .fetchMoviesByLimit(page)
+      .pipe(map((movie) => movie.items));
+  }
+
+  loadMovies(movie: IVideo): void {
+    const component = this.element.createComponent(MovieItemComponent);
+    component.instance.movie = movie;
   }
 }

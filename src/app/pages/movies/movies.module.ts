@@ -1,3 +1,4 @@
+import { LoaderModule } from './../../shared/components/loader/loader.module';
 import { InfiniteScrollComponentModule } from './../../shared/components/infinite-scroll/infinite-scroll-component.module';
 import { AuthInterceptor } from './../../shared/interceptors/auth.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +31,7 @@ import { PageMovieComponent } from './components/page-movie/page-movie.component
     MovieShortDetailsModule,
     ReactiveFormsModule,
     InfiniteScrollComponentModule,
+    LoaderModule,
   ],
   providers: [
     {

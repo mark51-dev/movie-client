@@ -17,13 +17,10 @@ import {
 export class InfiniteScrollComponent implements OnInit, OnDestroy {
   @Input() options = {};
   @Output() scrolled = new EventEmitter();
-  @ViewChild('anchor') anchor!: ElementRef<HTMLElement>;
+  @ViewChild('anchor', { read: ElementRef, static: true }) anchor!: ElementRef;
 
-  constructor(
-    private host: ElementRef,
-    private observer: IntersectionObserver
-  ) {}
-
+  constructor(private host: ElementRef) {}
+  observer: any;
   get element() {
     return this.host.nativeElement;
   }

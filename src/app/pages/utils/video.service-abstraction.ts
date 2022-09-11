@@ -3,6 +3,9 @@ export abstract class VideoServiceAbstraction {
   abstract fetchVideoByParam(videoParam: string | null): Observable<IVideo>;
   abstract fetchAllVideo(): Observable<IVideo[]>;
   abstract fetchMoviesBySearch(searchValue: string): Observable<IVideo[]>;
+  abstract fetchMoviesByLimit(
+    page: string
+  ): Observable<{ items: IVideo[]; count: number }>;
 }
 
 export interface IVideo {

@@ -2,8 +2,18 @@
 <app-movies-container>
   <app-movie-item
     class="movie-item"
-    *ngFor="let movie of movies | async"
+    *ngFor="let movie of searchMovies$ | async"
     [movie]="movie"
   ></app-movie-item>
 </app-movies-container>
+<app-infinite-scroll
+  [options]="{ treshhold: 1, rootMargin: '0px' }"
+  (scrolled)="pageHandler()"
+>
+  <ng-container *ngIf="movies$ | async; else movie"></ng-container>
+  <ng-template #movie></ng-template>
+</app-infinite-scroll>
 <app-movie-short-details></app-movie-short-details>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
