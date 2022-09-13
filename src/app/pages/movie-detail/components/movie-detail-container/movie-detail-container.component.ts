@@ -1,9 +1,9 @@
-import { IVideo } from './../../../utils/video.service-abstraction';
+import { IVideo } from '../../../../shared/utils/video.service-abstraction';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { fadeInAnimation } from 'src/app/app.animation';
-import { VideoServiceAbstraction } from 'src/app/pages/utils/video.service-abstraction';
+import { VideoServiceAbstraction } from 'src/app/shared/utils/video.service-abstraction';
 
 @Component({
   selector: 'app-movie-detail-container',

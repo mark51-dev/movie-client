@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {
   IVideo,
   VideoServiceAbstraction,
-} from '../../utils/video.service-abstraction';
+} from '../../../shared/utils/video.service-abstraction';
 import { Observable } from 'rxjs';
 
 @Injectable()

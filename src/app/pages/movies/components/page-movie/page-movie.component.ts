@@ -12,7 +12,7 @@ import {
 import {
   IVideo,
   VideoServiceAbstraction,
-} from 'src/app/pages/utils/video.service-abstraction';
+} from 'src/app/shared/utils/video.service-abstraction';
 import { MovieItemComponent } from './../movie-item/movie-item.component';
 
 @Component({
@@ -24,16 +24,23 @@ export class PageMovieComponent implements OnInit {
   searchControl: FormControl = new FormControl();
   searchMovies$!: Observable<IVideo[]> | Observable<[]>;
   page: number = 0;
+  pageLimit: number = 0;
+  private itemsPerPage = 25;
 
   movies$!: Observable<IVideo[]>;
 
-  @ViewChild('movie', { read: ViewContainerRef, static: true })
+  @ViewChild('movie', { read: ViewContainerRef })
   element!: ViewContainerRef;
 
   constructor(private readonly moviesService: VideoServiceAbstraction) {}
 
   pageHandler(): void {
-    this.movies$ = this.fetchMoviesByLimit((this.page * 25).toString()).pipe(
+    if (this.page * this.itemsPerPage > this.pageLimit) {
+      return;
+    }
+    this.movies$ = this.fetchMoviesByLimit(
+      (this.page * this.itemsPerPage).toString()
+    ).pipe(
       tap((res) => {
         res.forEach((movie) => this.loadMovies(movie));
       })
@@ -58,9 +65,10 @@ export class PageMovieComponent implements OnInit {
   }
 
   fetchMoviesByLimit(page: string): Observable<IVideo[]> {
-    return this.moviesService
-      .fetchMoviesByLimit(page)
-      .pipe(map((movie) => movie.items));
+    return this.moviesService.fetchMoviesByLimit(page).pipe(
+      tap((movie) => (this.pageLimit = movie.count)),
+      map((movie) => movie.items)
+    );
   }
 
   loadMovies(movie: IVideo): void {

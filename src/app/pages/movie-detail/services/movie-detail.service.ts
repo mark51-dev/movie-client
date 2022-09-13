@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import {
   IVideo,
   VideoServiceAbstraction,
-} from '../../utils/video.service-abstraction';
+} from '../../../shared/utils/video.service-abstraction';
 
 @Injectable()
 export class MovieDetailService extends VideoServiceAbstraction {

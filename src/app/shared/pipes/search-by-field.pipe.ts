@@ -1,4 +1,4 @@
-import { IVideo } from './../../pages/utils/video.service-abstraction';
+import { IVideo } from '../utils/video.service-abstraction';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({

@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IVideo } from 'src/app/pages/utils/video.service-abstraction';
+import { IVideo } from 'src/app/shared/utils/video.service-abstraction';
 
 @Component({
   selector: 'app-movie-item',

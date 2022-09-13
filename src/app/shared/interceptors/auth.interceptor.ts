@@ -1,60 +1,60 @@
 import { AuthService } from './../../pages/auth/services/auth.service';
-import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse,
   HttpClient,
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
 } from '@angular/common/http';
-import { Observable, catchError, throwError, switchMap, tap } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { catchError, Observable, switchMap, throwError } from 'rxjs';
+import { StorageService } from '../services/storage.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
-    private readonly authService: AuthService,
-    private readonly http: HttpClient
+    private readonly storageService: StorageService,
+    private readonly http: HttpClient,
+    private readonly authService: AuthService
   ) {}
+
+  private refresh = false;
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    let refresh = false;
     const clone = request.clone({
       setHeaders: {
-        Authorization: `Bearer ${this.authService.getValue('accessToken')}`,
+        Authorization: `Bearer ${this.storageService.getValue('accessToken')}`,
       },
     });
     return next.handle(clone).pipe(
       catchError((err: HttpErrorResponse) => {
-        console.log(err.status);
-
-        if ((err.status === 401 || err.status === 403) && !refresh) {
-          refresh = true;
-          return this.http
-            .post(
-              'http://localhost:3000/api/auth/refresh',
-              {},
-              { withCredentials: true }
-            )
-            .pipe(
-              switchMap((res: any) => {
-                this.authService.setValue('accessToken', res.accessToken);
-                return next.handle(
-                  request.clone({
-                    setHeaders: {
-                      Authorization: `Bearer ${this.authService.getValue(
-                        'accessToken'
-                      )}`,
-                    },
-                  })
-                );
-              })
-            );
+        if ((err.status === 401 || err.status === 403) && !this.refresh) {
+          this.refresh = true;
+          return this.authService.refresh().pipe(
+            switchMap((res: any) => {
+              this.refresh = false;
+              this.storageService.setValue('accessToken', res.accessToken);
+              return next.handle(
+                request.clone({
+                  setHeaders: {
+                    Authorization: `Bearer ${this.storageService.getValue(
+                      'accessToken'
+                    )}`,
+                  },
+                })
+              );
+            })
+          );
         }
-        return throwError(() => null);
+        return throwError(
+          () => new Error(`Interceptor error ${err.status} - ${err.message}`)
+        );
       })
     );
   }

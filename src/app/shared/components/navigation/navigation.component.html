@@ -1,4 +1,14 @@
 <ul class="navigation">
-  <li class="navigation__item"><a class="navigation__link" routerLink="/">Main page</a></li>
-  <li class="navigation__item"><a class="navigation__link" routerLink="/movies">Movies</a></li>
+  <!-- <li class="navigation__item">
+    <a class="navigation__link" routerLink="/">Main page</a>
+  </li> -->
+  <li class="navigation__item" *ngIf="authService.logStatus">
+    <a class="navigation__link" routerLink="/movies">Movies</a>
+  </li>
+  <li class="navigation__item" *ngIf="!authService.logStatus">
+    <a class="navigation__link" routerLink="/auth">Auth</a>
+  </li>
+  <li class="navigation__item" *ngIf="authService.logStatus">
+    <a class="navigation__link" (click)="logout()">Logout</a>
+  </li>
 </ul>

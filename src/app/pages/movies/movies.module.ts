@@ -1,20 +1,20 @@
-import { LoaderModule } from './../../shared/components/loader/loader.module';
-import { InfiniteScrollComponentModule } from './../../shared/components/infinite-scroll/infinite-scroll-component.module';
-import { AuthInterceptor } from './../../shared/interceptors/auth.interceptor';
-import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { VideoServiceAbstraction } from 'src/app/pages/utils/video.service-abstraction';
+import { ReactiveFormsModule } from '@angular/forms';
+import { VideoServiceAbstraction } from 'src/app/shared/utils/video.service-abstraction';
+import { InfiniteScrollComponentModule } from './../../shared/components/infinite-scroll/infinite-scroll-component.module';
+import { LoaderModule } from './../../shared/components/loader/loader.module';
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SearchByFieldPipe } from 'src/app/shared/pipes/search-by-field.pipe';
 import { MovieShortDetailsModule } from '../../shared/components/movie-short-details/movie-short-details.module';
 import { MovieItemComponent } from './components/movie-item/movie-item.component';
 import { MoviesContainerComponent } from './components/movies-container/movies-container.component';
+import { PageMovieComponent } from './components/page-movie/page-movie.component';
 import { SearchFieldComponent } from './components/search-field/search-field.component';
 import { MoviesRoutingModule } from './movies-routing.module';
 import { MoviesService } from './services/movies.service';
-import { PageMovieComponent } from './components/page-movie/page-movie.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from 'src/app/shared/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,6 @@ import { PageMovieComponent } from './components/page-movie/page-movie.component
   imports: [
     CommonModule,
     MoviesRoutingModule,
-    HttpClientModule,
     MovieShortDetailsModule,
     ReactiveFormsModule,
     InfiniteScrollComponentModule,
