@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Input,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -16,6 +17,9 @@ declare let shaka: any;
 export class MainPlayerComponent implements OnInit, AfterViewInit {
   @ViewChild('videoPlayer') videoElementRef: ElementRef | undefined;
   @ViewChild('videoContainer') videoContainerRef: ElementRef | undefined;
+  @Input() poster: string = '/coverUrl.jpg';
+  @Input() movieId: string = '298';
+  @Input() manifestName: string = 'sample-manifest-full.mpd';
 
   videoElement: HTMLVideoElement | undefined;
   videoContainerElement: HTMLDivElement | undefined;
@@ -65,7 +69,7 @@ export class MainPlayerComponent implements OnInit, AfterViewInit {
     };
     ui.configure(config);
 
-    let videoUrl = 'http://localhost:3000/sample-manifest-full.mpd';
+    let videoUrl = `http://localhost:3000/${this.movieId}/${this.manifestName}`;
 
     this.player
       .load(videoUrl)

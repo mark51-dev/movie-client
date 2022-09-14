@@ -1,15 +1,15 @@
-import { Router } from '@angular/router';
-import { StorageService } from 'src/app/shared/services/storage.service';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   BehaviorSubject,
+  catchError,
   debounceTime,
   Observable,
   tap,
-  catchError,
   throwError,
 } from 'rxjs';
+import { StorageService } from 'src/app/shared/services/storage.service';
 
 @Injectable()
 export class AuthService {
@@ -56,7 +56,10 @@ export class AuthService {
         {},
         { withCredentials: true }
       )
-      .pipe(debounceTime(300));
+      .pipe(
+        tap(() => this.loggedIn()),
+        debounceTime(300)
+      );
   }
 
   logout(): Observable<any> {
@@ -76,7 +79,6 @@ export class AuthService {
           }
         }),
         catchError((err) => {
-          this.loggedIn();
           return throwError(
             () => `Logout error ${err.status} - ${err.message}`
           );

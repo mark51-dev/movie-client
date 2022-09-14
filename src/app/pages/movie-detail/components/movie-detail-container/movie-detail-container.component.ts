@@ -1,19 +1,16 @@
-import { IVideo } from '../../../../shared/utils/video.service-abstraction';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { fadeInAnimation } from 'src/app/app.animation';
 import { VideoServiceAbstraction } from 'src/app/shared/utils/video.service-abstraction';
+import { IVideo } from '../../../../shared/utils/video.service-abstraction';
 
 @Component({
   selector: 'app-movie-detail-container',
   templateUrl: './movie-detail-container.component.html',
   styleUrls: ['./movie-detail-container.component.scss'],
-  animations: [fadeInAnimation],
-  host: { '[@fadeInAnimation]': '' },
 })
 export class MovieDetailContainerComponent implements OnInit {
-  movie: Observable<IVideo> | undefined;
+  movie$: Observable<IVideo> | undefined;
   constructor(
     private readonly router: ActivatedRoute,
     private readonly movieDetail: VideoServiceAbstraction
@@ -25,7 +22,7 @@ export class MovieDetailContainerComponent implements OnInit {
 
   initializeData(): void {
     this.router.paramMap.subscribe((res) => {
-      this.movie = this.fetchMovieByKPId(res.get('id'));
+      this.movie$ = this.fetchMovieByKPId(res.get('id'));
     });
   }
 

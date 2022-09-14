@@ -17,7 +17,6 @@ import { StorageService } from '../services/storage.service';
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private readonly storageService: StorageService,
-    private readonly http: HttpClient,
     private readonly authService: AuthService
   ) {}
 
@@ -38,7 +37,6 @@ export class AuthInterceptor implements HttpInterceptor {
           this.refresh = true;
           return this.authService.refresh().pipe(
             switchMap((res: any) => {
-              this.refresh = false;
               this.storageService.setValue('accessToken', res.accessToken);
               return next.handle(
                 request.clone({

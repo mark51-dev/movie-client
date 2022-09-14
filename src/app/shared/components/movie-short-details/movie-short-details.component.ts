@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, mergeAll, of, tap } from 'rxjs';
+import { mergeMap, of, tap } from 'rxjs';
+import { IVideo } from '../../utils/video.service-abstraction';
 import { divTrigger } from './movie-short-details.animation';
 
 @Component({
@@ -11,7 +12,7 @@ import { divTrigger } from './movie-short-details.animation';
   animations: [divTrigger],
 })
 export class MovieShortDetailsComponent implements OnInit {
-  movie!: any;
+  movie!: Partial<IVideo>;
   movieShortVisible: boolean = false;
   isLoading: boolean = true;
   constructor(
@@ -24,29 +25,29 @@ export class MovieShortDetailsComponent implements OnInit {
   }
 
   initializeData() {
-    this.movie = this.router.queryParamMap
+    this.router.queryParamMap
       .pipe(
-        tap(() => (this.isLoading = true)),
-        map((params) => {
-          if (!params.get('movieShort')) {
-            return of(null);
-          }
-          return this.http.get(
-            `http://localhost:3000/api/movie/${params.get('movieShort')}`
-          );
+        tap(() => {
+          this.isLoading = true;
         }),
-        mergeAll(),
+        mergeMap((res) => {
+          const movieId = res.get('movieShort');
+          if (movieId) {
+            return this.http
+              .get(`http://localhost:3000/api/movie/${movieId}`)
+              .pipe(
+                tap(() => {
+                  this.isLoading = false;
+                  this.movieShortVisible = true;
+                })
+              );
+          }
+          this.movieShortVisible = false;
+          return of();
+        })
         // fix when try to reload page opened window doesn't show loader
-        tap((movieShort) =>
-          movieShort
-            ? (this.movieShortVisible = true)
-            : (this.movieShortVisible = false)
-        )
       )
-      .subscribe((movie) => {
-        this.movie = movie;
-        setTimeout(() => (this.isLoading = false), 300);
-      });
+      .subscribe((res: Partial<IVideo>) => (this.movie = res));
   }
 
   detailMovieClose() {

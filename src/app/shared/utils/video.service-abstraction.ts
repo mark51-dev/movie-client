@@ -53,6 +53,7 @@ export interface IVideo {
   hasImax: boolean;
   has3D: boolean;
   lastSync: string;
+  dashManifestExists: boolean;
   videoCdnMovie: IVideoCdn;
 }
 
