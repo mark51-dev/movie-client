@@ -1,6 +1,4 @@
-import { AuthService } from './../../pages/auth/services/auth.service';
 import {
-  HttpClient,
   HttpErrorResponse,
   HttpEvent,
   HttpHandler,
@@ -10,6 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { StorageService } from '../services/storage.service';
+import { AuthService } from './../../pages/auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root',

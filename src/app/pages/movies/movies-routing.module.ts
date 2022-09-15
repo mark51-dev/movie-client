@@ -4,6 +4,11 @@ import { PageMovieComponent } from './components/page-movie/page-movie.component
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'movies',
+    pathMatch: 'full',
+  },
+  {
     path: 'movies',
     component: PageMovieComponent,
   },
