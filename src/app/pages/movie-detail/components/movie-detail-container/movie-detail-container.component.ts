@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment.prod';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -10,6 +11,7 @@ import { IVideo } from '../../../../shared/utils/video.service-abstraction';
   styleUrls: ['./movie-detail-container.component.scss'],
 })
 export class MovieDetailContainerComponent implements OnInit {
+  baseUrl: string = environment.baseUrl;
   movie$: Observable<IVideo> | undefined;
   constructor(
     private readonly router: ActivatedRoute,

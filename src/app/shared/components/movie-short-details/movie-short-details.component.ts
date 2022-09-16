@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { mergeMap, of, tap } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 import { IVideo } from '../../utils/video.service-abstraction';
 import { divTrigger } from './movie-short-details.animation';
 
@@ -12,6 +13,7 @@ import { divTrigger } from './movie-short-details.animation';
   animations: [divTrigger],
 })
 export class MovieShortDetailsComponent implements OnInit {
+  baseUrl: string = environment.baseUrl;
   movie!: Partial<IVideo>;
   movieShortVisible: boolean = false;
   isLoading: boolean = true;
@@ -34,7 +36,7 @@ export class MovieShortDetailsComponent implements OnInit {
           const movieId = res.get('movieShort');
           if (movieId) {
             return this.http
-              .get(`http://localhost:3000/api/movie/${movieId}`)
+              .get(`${environment.baseUrlApi}/movie/${movieId}`)
               .pipe(
                 tap(() => {
                   this.isLoading = false;

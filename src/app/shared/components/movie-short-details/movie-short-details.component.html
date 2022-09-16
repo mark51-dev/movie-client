@@ -13,7 +13,7 @@
       <div class="movie-detail__img">
         <img
           *ngIf="movie.logoUrl; else movieName"
-          src="http://localhost:3000/{{ movie.logoUrl }}"
+          src="{{ baseUrl }}/{{ movie.logoUrl }}"
           alt=""
         />
         <ng-template #movieName>

@@ -5,6 +5,7 @@ import {
   VideoServiceAbstraction,
 } from '../../../shared/utils/video.service-abstraction';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable()
 export class MoviesService extends VideoServiceAbstraction {
@@ -15,11 +16,11 @@ export class MoviesService extends VideoServiceAbstraction {
     throw new Error('Method not implemented.');
   }
   fetchAllVideo(): Observable<IVideo[]> {
-    return this.http.get<IVideo[]>(`http://localhost:3000/api/movie/all`);
+    return this.http.get<IVideo[]>(`${environment.baseUrlApi}/movie/all`);
   }
   fetchMoviesBySearch(searchValue: string): Observable<IVideo[]> {
     return this.http.get<IVideo[]>(
-      `http://localhost:3000/api/movie/search/${searchValue}`
+      `${environment.baseUrlApi}/movie/search/${searchValue}`
     );
   }
 
@@ -27,7 +28,7 @@ export class MoviesService extends VideoServiceAbstraction {
     page: string
   ): Observable<{ items: IVideo[]; count: number }> {
     return this.http.get<{ items: IVideo[]; count: number }>(
-      `http://localhost:3000/api/movie/all/pagination?page=${page}`
+      `${environment.baseUrlApi}/movie/all/pagination?page=${page}`
     );
   }
 }

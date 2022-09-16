@@ -1,16 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IVideo } from 'src/app/shared/utils/video.service-abstraction';
 
 @Component({
   selector: 'app-movie-item',
   templateUrl: './movie-item.component.html',
   styleUrls: ['./movie-item.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieItemComponent implements OnInit {
   @Input() movie!: IVideo;

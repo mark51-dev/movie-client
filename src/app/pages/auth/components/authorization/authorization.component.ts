@@ -1,3 +1,4 @@
+import { ToastService } from './../../../../shared/components/toast/toast.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,7 +17,8 @@ export class AuthorizationComponent implements OnInit {
     private fb: FormBuilder,
     private readonly router: Router,
     private readonly authService: AuthService,
-    private readonly storageService: StorageService
+    private readonly storageService: StorageService,
+    private readonly toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -41,9 +43,13 @@ export class AuthorizationComponent implements OnInit {
   submit() {
     this.authService
       .login(this.form.getRawValue())
-      .pipe(catchError((err) => throwError(err)))
+      .pipe(catchError((err) => throwError(() => `Authorization error ${err}`)))
       .subscribe((res) => {
         this.authService.loggedIn();
+        this.toastService.showToast('Hello');
+        this.toastService.showToast(
+          'Hi, you logged in. Select your movie and watch for free!'
+        );
         this.storageService.setValue('accessToken', res.accessToken);
         this.router.navigate(['/movies']);
       });

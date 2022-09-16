@@ -5,6 +5,7 @@ import {
   IVideo,
   VideoServiceAbstraction,
 } from '../../../shared/utils/video.service-abstraction';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable()
 export class MovieDetailService extends VideoServiceAbstraction {
@@ -14,16 +15,16 @@ export class MovieDetailService extends VideoServiceAbstraction {
 
   fetchVideoByParam(videoParam: string): Observable<IVideo> {
     return this.http.get<IVideo>(
-      `http://localhost:3000/api/movie/${videoParam}`
+      `${environment.baseUrlApi}/movie/${videoParam}`
     );
   }
   fetchAllVideo(): Observable<IVideo[]> {
-    return this.http.get<IVideo[]>(`http://localhost:3000/api/movie/all`);
+    return this.http.get<IVideo[]>(`${environment.baseUrlApi}/movie/all`);
   }
 
   fetchMoviesBySearch(searchValue: string): Observable<IVideo[]> {
     return this.http.get<IVideo[]>(
-      `http://localhost:3000/api/movie/search/${searchValue}`
+      `${environment.baseUrlApi}/movie/search/${searchValue}`
     );
   }
 

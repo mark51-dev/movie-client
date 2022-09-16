@@ -6,7 +6,7 @@
           <img
             *ngIf="item.coverUrl; else poster"
             class="poster__img"
-            src="http://localhost:3000{{ item.coverUrl }}"
+            src="{{ baseUrl }}{{ item.coverUrl }}"
             alt=""
           />
           <ng-template #poster>

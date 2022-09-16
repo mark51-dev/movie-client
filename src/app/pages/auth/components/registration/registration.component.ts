@@ -1,3 +1,4 @@
+import { ToastService } from './../../../../shared/components/toast/toast.service';
 import { StorageService } from '../../../../shared/services/storage.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -16,7 +17,8 @@ export class RegistrationComponent implements OnInit {
     private fb: FormBuilder,
     private readonly router: Router,
     private readonly authService: AuthService,
-    private readonly storageService: StorageService
+    private readonly storageService: StorageService,
+    private readonly toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -53,9 +55,18 @@ export class RegistrationComponent implements OnInit {
     if (this.form.valid) {
       this.authService
         .registration(this.form.getRawValue())
-        .pipe(catchError((err) => throwError(err)))
+        .pipe(
+          catchError((err) => {
+            this.toastService.showToast(
+              'Registration error! Account already exists!',
+              'error'
+            );
+            return throwError(() => `Registration error ${err}`);
+          })
+        )
         .subscribe((res) => {
           this.authService.loggedIn();
+          this.toastService.showToast('Your account created!');
           this.storageService.setValue('accessToken', res.accessToken);
           this.router.navigate(['/movies']);
         });

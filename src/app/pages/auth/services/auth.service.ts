@@ -10,6 +10,7 @@ import {
   throwError,
 } from 'rxjs';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable()
 export class AuthService {
@@ -35,7 +36,7 @@ export class AuthService {
 
   registration(formData: any): Observable<any> {
     return this.http
-      .post(`http://localhost:3000/api/auth/registration`, formData, {
+      .post(`${environment.baseUrlApi}/api/auth/registration`, formData, {
         withCredentials: true,
       })
       .pipe(debounceTime(300));
@@ -43,7 +44,7 @@ export class AuthService {
 
   login(formData: any): Observable<any> {
     return this.http
-      .post(`http://localhost:3000/api/auth/login`, formData, {
+      .post(`${environment.baseUrlApi}/auth/login`, formData, {
         withCredentials: true,
       })
       .pipe(debounceTime(300));
@@ -52,7 +53,7 @@ export class AuthService {
   refresh(): Observable<any> {
     return this.http
       .post(
-        'http://localhost:3000/api/auth/refresh',
+        `${environment.baseUrlApi}/auth/refresh`,
         {},
         { withCredentials: true }
       )
@@ -65,7 +66,7 @@ export class AuthService {
   logout(): Observable<any> {
     return this.http
       .post(
-        'http://localhost:3000/api/auth/logout',
+        `${environment.baseUrlApi}/auth/logout`,
         {},
         { withCredentials: true }
       )
