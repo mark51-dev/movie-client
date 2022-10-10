@@ -1,3 +1,4 @@
+import { StorageAbstractClass } from 'src/app/shared/utils/StorageService.abstraction';
 import { ToastService } from './../../../../shared/components/toast/toast.service';
 import { StorageService } from '../../../../shared/services/storage.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,7 +18,7 @@ export class RegistrationComponent implements OnInit {
     private fb: FormBuilder,
     private readonly router: Router,
     private readonly authService: AuthService,
-    private readonly storageService: StorageService,
+    private readonly storageService: StorageAbstractClass,
     private readonly toastService: ToastService
   ) {}
 
@@ -65,7 +66,6 @@ export class RegistrationComponent implements OnInit {
           })
         )
         .subscribe((res) => {
-          this.authService.loggedIn();
           this.toastService.showToast('Your account created!');
           this.storageService.setValue('accessToken', res.accessToken);
           this.router.navigate(['/movies']);

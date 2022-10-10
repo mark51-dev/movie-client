@@ -1,19 +1,16 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  IVideo,
-  VideoServiceAbstraction,
-} from '../../../shared/utils/video.service-abstraction';
+import { IVideo } from '../../../shared/models/movie.interface';
 import { environment } from 'src/environments/environment.prod';
 
-@Injectable()
-export class MovieDetailService extends VideoServiceAbstraction {
-  constructor(private readonly http: HttpClient) {
-    super();
-  }
+@Injectable({
+  providedIn: 'root',
+})
+export class MovieDetailService {
+  constructor(private readonly http: HttpClient) {}
 
-  fetchVideoByParam(videoParam: string): Observable<IVideo> {
+  fetchVideoByParam(videoParam: string | null): Observable<IVideo> {
     return this.http.get<IVideo>(
       `${environment.baseUrlApi}/movie/${videoParam}`
     );
@@ -26,11 +23,5 @@ export class MovieDetailService extends VideoServiceAbstraction {
     return this.http.get<IVideo[]>(
       `${environment.baseUrlApi}/movie/search/${searchValue}`
     );
-  }
-
-  fetchMoviesByLimit(
-    page: string
-  ): Observable<{ items: IVideo[]; count: number }> {
-    throw new Error('Method not implemented.');
   }
 }

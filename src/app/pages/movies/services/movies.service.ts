@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  IVideo,
-  VideoServiceAbstraction,
-} from '../../../shared/utils/video.service-abstraction';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
+import { IVideo } from 'src/app/shared/models/movie.interface';
 
-@Injectable()
-export class MoviesService extends VideoServiceAbstraction {
-  constructor(private readonly http: HttpClient) {
-    super();
-  }
+@Injectable({
+  providedIn: 'root',
+})
+export class MoviesService {
+  constructor(private readonly http: HttpClient) {}
   fetchVideoByParam(videoParam: string | null): Observable<IVideo> {
     throw new Error('Method not implemented.');
   }

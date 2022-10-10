@@ -1,3 +1,4 @@
+import { StorageAbstractClass } from 'src/app/shared/utils/StorageService.abstraction';
 import {
   HttpErrorResponse,
   HttpEvent,
@@ -10,12 +11,10 @@ import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { StorageService } from '../services/storage.service';
 import { AuthService } from './../../pages/auth/services/auth.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
-    private readonly storageService: StorageService,
+    private readonly storageService: StorageAbstractClass,
     private readonly authService: AuthService
   ) {}
 
@@ -32,7 +31,8 @@ export class AuthInterceptor implements HttpInterceptor {
     });
     return next.handle(clone).pipe(
       catchError((err: HttpErrorResponse) => {
-        if ((err.status === 401 || err.status === 403) && !this.refresh) {
+        if (err.status === 401 && !this.refresh) {
+          console.log('qweqwe');
           this.refresh = true;
           return this.authService.refresh().pipe(
             switchMap((res: any) => {

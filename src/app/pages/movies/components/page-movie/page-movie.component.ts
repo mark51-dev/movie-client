@@ -1,3 +1,4 @@
+import { MoviesService } from './../../services/movies.service';
 import { ToastService } from './../../../../shared/components/toast/toast.service';
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -10,11 +11,8 @@ import {
   of,
   tap,
 } from 'rxjs';
-import {
-  IVideo,
-  VideoServiceAbstraction,
-} from 'src/app/shared/utils/video.service-abstraction';
 import { MovieItemComponent } from './../movie-item/movie-item.component';
+import { IVideo } from 'src/app/shared/models/movie.interface';
 
 @Component({
   selector: 'app-page-movie',
@@ -33,7 +31,7 @@ export class PageMovieComponent implements OnInit {
   @ViewChild('movie', { read: ViewContainerRef })
   element!: ViewContainerRef;
 
-  constructor(private readonly moviesService: VideoServiceAbstraction) {}
+  constructor(private readonly moviesService: MoviesService) {}
 
   pageHandler(): void {
     if (this.page * this.itemsPerPage > this.pageLimit) {

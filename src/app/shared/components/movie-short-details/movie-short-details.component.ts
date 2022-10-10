@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { mergeMap, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { IVideo } from '../../utils/video.service-abstraction';
+import { IVideo } from '../../models/movie.interface';
 import { divTrigger } from './movie-short-details.animation';
 
 @Component({

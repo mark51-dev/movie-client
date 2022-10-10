@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { StorageAbstractClass } from '../utils/StorageService.abstraction';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class StorageService extends StorageAbstractClass {
   getValue(storageKey: string): any {
     try {

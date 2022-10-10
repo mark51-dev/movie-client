@@ -1,5 +1,5 @@
-import { IVideo } from '../utils/video.service-abstraction';
 import { Pipe, PipeTransform } from '@angular/core';
+import { IVideo } from '../models/movie.interface';
 
 @Pipe({
   name: 'searchByField',

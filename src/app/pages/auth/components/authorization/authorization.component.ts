@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
-import { StorageService } from 'src/app/shared/services/storage.service';
 import { AuthService } from './../../services/auth.service';
+import { StorageAbstractClass } from 'src/app/shared/utils/StorageService.abstraction';
 
 @Component({
   selector: 'app-authorization',
@@ -17,7 +17,7 @@ export class AuthorizationComponent implements OnInit {
     private fb: FormBuilder,
     private readonly router: Router,
     private readonly authService: AuthService,
-    private readonly storageService: StorageService,
+    private readonly storageService: StorageAbstractClass,
     private readonly toastService: ToastService
   ) {}
 
@@ -45,7 +45,6 @@ export class AuthorizationComponent implements OnInit {
       .login(this.form.getRawValue())
       .pipe(catchError((err) => throwError(() => `Authorization error ${err}`)))
       .subscribe((res) => {
-        this.authService.loggedIn();
         this.toastService.showToast('Hello');
         this.toastService.showToast(
           'Hi, you logged in. Select your movie and watch for free!'

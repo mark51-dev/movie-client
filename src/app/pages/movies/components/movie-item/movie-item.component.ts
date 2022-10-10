@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IVideo } from 'src/app/shared/utils/video.service-abstraction';
+import { IVideo } from 'src/app/shared/models/movie.interface';
 
 @Component({
   selector: 'app-movie-item',
